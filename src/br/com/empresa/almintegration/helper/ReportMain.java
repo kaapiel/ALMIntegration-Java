@@ -25,7 +25,7 @@ import org.junit.runner.notification.Failure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.empresa.almintegration.execution.PlayServices;
+import br.com.empresa.almintegration.execution.PlayTestCases;
 
 /**
  * Fabrica<BR>
@@ -62,11 +62,11 @@ public class ReportMain {
 		
 		Thread.sleep(2000);
 		
-		workbook = new XSSFWorkbook(new FileInputStream(PlayServices.settings.getConfig().getPaths().getAux() + "Relatorio Execucao.xltx"));
+		workbook = new XSSFWorkbook(new FileInputStream(PlayTestCases.settings.getConfig().getPaths().getAux() + "Relatorio Execucao.xltx"));
 		
 		String reportName = "Relatorio Execucao" + "-" + nome + "-" + DateHelper.getDataAtualFormatada("yyyyMMdd-HHmmss") + ".xltx";
 
-		String pathName = PlayServices.settings.getConfig().getPaths().getOutputDirBaseEvidences();
+		String pathName = PlayTestCases.settings.getConfig().getPaths().getOutputDirBaseEvidences();
 		
 		if (!new File(pathName).exists()) {
 
@@ -147,15 +147,15 @@ public class ReportMain {
 				"Todos os testes passaram?"
 				});
 		
-		if (PlayServices.result != null && !PlayServices.result.isEmpty()) {
+		if (PlayTestCases.result != null && !PlayTestCases.result.isEmpty()) {
 		
 			//for (Result result : results) {
 			
-			Set<String> keyset = PlayServices.result.keySet();
+			Set<String> keyset = PlayTestCases.result.keySet();
 			
 			for (String keyReport : keyset) {
 			
-				Result result = PlayServices.result.get(keyReport);
+				Result result = PlayTestCases.result.get(keyReport);
 				
 				String version = "ND";
 				
@@ -216,15 +216,15 @@ public class ReportMain {
 		
 		Map<String, Failure> mapFailure = new TreeMap<String, Failure>();
 		
-		if (PlayServices.result != null && !PlayServices.result.isEmpty()) {
+		if (PlayTestCases.result != null && !PlayTestCases.result.isEmpty()) {
 		
 			//for (Result result : results) {
 			
-			Set<String> keyset = PlayServices.result.keySet();
+			Set<String> keyset = PlayTestCases.result.keySet();
 			
 			for (String keyReport : keyset) {
 			
-				Result result = PlayServices.result.get(keyReport);
+				Result result = PlayTestCases.result.get(keyReport);
 				
 				if (result.getFailures() != null && !result.getFailures().isEmpty()) {
 					
@@ -248,11 +248,11 @@ public class ReportMain {
 		
 		int id = 1;
 		
-		if (PlayServices.ctsSuite != null && !PlayServices.ctsSuite.isEmpty()) {
+		if (PlayTestCases.ctsSuite != null && !PlayTestCases.ctsSuite.isEmpty()) {
 		
-			for (String keyReport : PlayServices.ctsSuite.keySet()) {
+			for (String keyReport : PlayTestCases.ctsSuite.keySet()) {
 				
-				CT ct = PlayServices.ctsSuite.get(keyReport);
+				CT ct = PlayTestCases.ctsSuite.get(keyReport);
 				
 				boolean failure = mapFailure.containsKey(ct.getClasse());
 				
@@ -298,15 +298,15 @@ public class ReportMain {
 				"Excecao"
 				});
 		
-		if (PlayServices.result != null && !PlayServices.result.isEmpty()) {
+		if (PlayTestCases.result != null && !PlayTestCases.result.isEmpty()) {
 		
 			//for (Result result : results) {
 				
-			Set<String> keyset = PlayServices.result.keySet();
+			Set<String> keyset = PlayTestCases.result.keySet();
 				
 			for (String keyReport : keyset) {
 				
-				Result result = PlayServices.result.get(keyReport);
+				Result result = PlayTestCases.result.get(keyReport);
 				
 				if (result.getFailures() != null && !result.getFailures().isEmpty()) {
 					

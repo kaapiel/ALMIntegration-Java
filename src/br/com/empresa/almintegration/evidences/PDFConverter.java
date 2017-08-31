@@ -12,12 +12,12 @@ import org.odftoolkit.odfdom.doc.OdfDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.empresa.almintegration.execution.PlayServices;
+import br.com.empresa.almintegration.execution.PlayTestCases;
 
 public class PDFConverter implements Runnable {
 	String odtFilename;
 	String pdfFilename;
-	private static Logger LOGGER = LoggerFactory.getLogger(PlayServices.class.getSimpleName());
+	private static Logger LOGGER = LoggerFactory.getLogger(PlayTestCases.class.getSimpleName());
 	public PDFConverter(String odtFileName, String pdfFileName) {
 		this.odtFilename = odtFileName;
 		this.pdfFilename = pdfFileName;

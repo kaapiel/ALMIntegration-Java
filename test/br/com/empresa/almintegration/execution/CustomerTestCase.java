@@ -18,7 +18,7 @@ import br.com.empresa.almintegration.constants.ViewConstants;
 import br.com.empresa.almintegration.evidences.EvidencesWriter;
 import br.com.empresa.almintegration.helper.Utils;
 
-public class CustomerTestCase extends PlayServices {
+public class CustomerTestCase extends PlayTestCases {
 
 	protected static final Object BREAKLINE = "\r\n";
 	protected static final Object TAB = "\t";

@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import br.com.empresa.almintegration.execution.PlayServices;
+import br.com.empresa.almintegration.execution.PlayTestCases;
 
 /**
  *
@@ -13,7 +13,7 @@ import br.com.empresa.almintegration.execution.PlayServices;
  * To execute this code, change these settings to fit
  * those of your server.
  */
-public class Constants extends PlayServices {
+public class Constants extends PlayTestCases {
 
 	public String HOST;
 	public String PORT;

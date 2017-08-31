@@ -4,12 +4,12 @@
 	<Config>
 		<ALM>
 			<Project>
-				<Project>PROJECT_NAME</Project>
+				<Project>PJ07329_Cred_OLD</Project>
 				<Host>alm.saas.hpe.com</Host>
 				<Port>80</Port>
-				<Domain>DOMAIN_NAME</Domain>
-				<User>ALM_USER</User>
-				<Pass>ALM_PASS</Pass>
+				<Domain>CIELO</Domain>
+				<User>gabriel.fraga.yam</User>
+				<Pass>Treina01</Pass>
 			</Project>
 		</ALM>
 		<Evidences>

@@ -32,12 +32,12 @@ import br.com.empresa.almintegration.alm.infrastructure.Constants;
 import br.com.empresa.almintegration.alm.test.GetEntities;
 import br.com.empresa.almintegration.constants.ConstantsServices;
 import br.com.empresa.almintegration.constants.ViewConstants;
-import br.com.empresa.almintegration.execution.PlayServices;
+import br.com.empresa.almintegration.execution.PlayTestCases;
 import br.com.empresa.almintegration.helper.imageutils.JSON2Image;
 import br.com.empresa.almintegration.model.ServiceResponse;
 import br.com.empresa.almintegration.model.WebEvidence;
 
-public class TestesServicos extends PlayServices {
+public class TestesServicos extends PlayTestCases {
 
 	public Map<Integer, String> doHttpRequest(String endpoint, String method, Map<String, String> headers, String data) 
 			throws FileNotFoundException, IOException, URISyntaxException{

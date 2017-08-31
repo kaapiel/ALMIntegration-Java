@@ -49,7 +49,7 @@ import br.com.empresa.almintegration.helper.Utils;
 import br.com.empresa.almintegration.helper.imageutils.JSON2Image;
 import br.com.empresa.almintegration.model.ServiceResponse;
 
-public class PlayServices extends ReportMain {
+public class PlayTestCases extends ReportMain {
 
 	protected static String runId;
 	protected static ArrayList<TestInstance> til;
@@ -74,7 +74,7 @@ public class PlayServices extends ReportMain {
 	public static Settings settings;
 	public static EnvSettings enviromentSettings;
 	public static br.com.empresa.almintegration.alm.configuration.almModel.Settings almSettings;
-	private static Logger LOGGER = LoggerFactory.getLogger(PlayServices.class.getSimpleName());
+	private static Logger LOGGER = LoggerFactory.getLogger(PlayTestCases.class.getSimpleName());
 
 	public static void main(String[] args) throws Exception {
 
@@ -113,12 +113,12 @@ public class PlayServices extends ReportMain {
 			if (!new File(pathName).exists()) {
 				new File(pathName).mkdirs();
 			}
-			String filePathAndName = gerarRelatorioXls(PlayServices.class.getSimpleName());
+			String filePathAndName = gerarRelatorioXls(PlayTestCases.class.getSimpleName());
 
 			new SendEmail().generateAndSendEmail(new File(filePathAndName), result);
 
 			Thread.sleep(10000);
-			Utils.arquivarEvidencias(PlayServices.class.getSimpleName());
+			Utils.arquivarEvidencias(PlayTestCases.class.getSimpleName());
 
 			Thread.sleep(6000);
 			Utils.arquivarEvidenciasConsolidadas();
@@ -148,7 +148,7 @@ public class PlayServices extends ReportMain {
 
 	private static void init(String testSetId) throws Exception {
 
-		PlayServices.testSetId = testSetId;
+		PlayTestCases.testSetId = testSetId;
 		c = new Constants();
 		g = new GetEntities();
 		String queryedJsonInstances = g.getJsonTestInstances(c.USERNAME, c.PASSWORD, "json", testSetId, true);
@@ -178,7 +178,7 @@ public class PlayServices extends ReportMain {
 	public TestInstance getTestInstanceByTestCaseNumber(String testInstanceName) {
 
 		try {
-			for (TestInstance ti : PlayServices.til) {
+			for (TestInstance ti : PlayTestCases.til) {
 				if (ti.getTestInstanceName().contains(testInstanceName)) {
 					return ti;
 				}

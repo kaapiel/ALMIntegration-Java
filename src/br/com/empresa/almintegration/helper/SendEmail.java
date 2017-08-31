@@ -26,9 +26,9 @@ import javax.mail.internet.MimeMultipart;
 
 import org.junit.runner.Result;
 
-import br.com.empresa.almintegration.execution.PlayServices;
+import br.com.empresa.almintegration.execution.PlayTestCases;
 
-public class SendEmail extends PlayServices {
+public class SendEmail extends PlayTestCases {
 	
 //	public static void main(String[] args) throws AddressException, MessagingException, FileNotFoundException, IOException, URISyntaxException{
 //		SendEmail s = new SendEmail();
@@ -75,7 +75,7 @@ public class SendEmail extends PlayServices {
 			message.setFrom(fromAddress);
 			message.setRecipient(Message.RecipientType.TO, toAddress);
 
-			ArrayList<String> TBNames = new PlayServices().getTBNames(result);
+			ArrayList<String> TBNames = new PlayTestCases().getTBNames(result);
 			StringBuilder sb = new StringBuilder();
 			
 			for (String TBName : TBNames) {
