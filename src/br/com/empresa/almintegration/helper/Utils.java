@@ -8,14 +8,17 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Inet4Address;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -26,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -45,10 +47,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.commons.exec.ExecuteException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
-import org.mortbay.util.ajax.JSON;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -57,6 +59,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.genium_framework.appium.support.server.AppiumServer;
+import com.github.genium_framework.server.ServerArguments;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -72,9 +76,12 @@ import br.com.empresa.almintegration.constants.ConstantsServices;
 import br.com.empresa.almintegration.constants.ViewConstants;
 import br.com.empresa.almintegration.execution.PlayServices;
 import br.com.empresa.almintegration.model.ServiceResponse;
-import br.com.empresa.almintegration.tn3270.Mainframe;
-import br.com.empresa.almintegration.tn3270.net.sf.f3270.TerminalObserver;
-import br.com.empresa.almintegration.tn3270.net.sf.f3270.TerminalWindowObserver;
+import br.com.empresa.almintegration.testing.tn3270.Mainframe;
+import br.com.empresa.almintegration.testing.tn3270.net.sf.f3270.TerminalObserver;
+import br.com.empresa.almintegration.testing.tn3270.net.sf.f3270.TerminalWindowObserver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.remote.MobileCapabilityType;
 
 /**
  * @author Gabriel Fraga
@@ -932,5 +939,136 @@ public class Utils extends PlayServices {
 	public static String insertBreaklinesInJSON(String finalResponse) {
 		return finalResponse;
 	}
+	
+	public static AppiumServer initializeServer() throws ExecuteException, IOException, InterruptedException{
+
+		//stopServer();
+		ServerArguments serverArguments = new ServerArguments();
+		serverArguments.setArgument("--port", 4723);
+		serverArguments.setArgument("--local-timezone", true);
+		serverArguments.setArgument("--address", "127.0.0.1");
+		AppiumServer appiumServer = new AppiumServer(serverArguments);
+		appiumServer.startServer(60000);
+		return appiumServer;
+	}
+	
+	public static void stopServer() throws IOException{
+
+		StringBuilder command = new StringBuilder();
+		command.append("cmd /c echo off")
+		.append(" & ")
+		.append("FOR /F \"usebackq tokens=5\" %p in (`netstat -nao ^| findstr /R /C:\"4723\"`) ")
+		.append("do (FOR /F \"usebackq\" %t in (`TASKLIST /FI \"PID eq %p\" ^| findstr /I node.exe`) ")
+		.append("do taskkill /F /PID %p)");
+
+		Runtime.getRuntime().exec(command.toString());
+
+	}
+	
+	public static void closeEmulator() throws FileNotFoundException, IOException, URISyntaxException{
+		Runtime.getRuntime().exec(carregarLinks().getProperty(ViewConstants.Commands.ADB_PATH)+"adb emu kill");
+	}
+	
+	public static WebDriver initializeiOSDriver(String deviceName, String appPath) throws InterruptedException, IOException {
+		DesiredCapabilities caps = new DesiredCapabilities();
+		caps.setCapability(MobileCapabilityType.PLATFORM_NAME,"iOS");
+		caps.setCapability(MobileCapabilityType.PLATFORM_VERSION, "8.1");
+		if (deviceName == null)	caps.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 6 Plus"); else caps.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);//nome do dispositivo
+		caps.setCapability(MobileCapabilityType.APP, appPath);
+		//caps.setCapability(MobileCapabilityType.UDID, "8ab872d5a64f6e7fdcc7b5dab6c4914cb4b05ccf");
+
+		Runtime.getRuntime().exec("open -a Simulator --args");
+
+		return new RemoteWebDriver(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+	}
+	
+	public static boolean verificarSeHaDispositivosAndroidAtivos() throws IOException, URISyntaxException{
+
+		Process proc = Runtime.getRuntime().exec(carregarLinks().getProperty(ViewConstants.Commands.ADB_PATH)+"adb shell getprop init.svc.bootanim");
+		BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+
+		try{
+			String s = "";
+			if ((s = stdInput.readLine()).contains("stopped")) {
+				//Quando encontrar o resultado do comando 'stopped', é porque o
+				//dispositivo ja esta aberto e tudo está ok;
+				System.out.println("Rodando testes em dispositivo físico");
+				return true;
+			}
+		} catch (NullPointerException npe){
+			return false;
+		}
+
+		return false;
+	}
+	
+	private static String aguardarDispositivoAndroidLigar() throws IOException, InterruptedException, URISyntaxException{
+
+		Process proc = Runtime.getRuntime().exec(carregarLinks().getProperty(ViewConstants.Commands.ADB_PATH)+"adb shell getprop init.svc.bootanim");
+
+		BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+		BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+
+		try{
+			// read the output from the command
+			String s = "";
+			if (!(s = stdError.readLine()).contains("HUEHUE")) {
+				//enquanto não encontrar (nunca irá rs) a palavra 'HUEHUE', 
+				//re-executa o comando de verificar se esta ativo o dispositivo;
+				aguardarDispositivoAndroidLigar();
+			}
+
+		} catch(NullPointerException npe){
+			String s = "";
+			if (!(s = stdInput.readLine()).contains("stopped")) {
+				//Quando encontrar o resultado do comando 'stopped', é porque o
+				//dispositivo ja esta aberto e tudo está ok;
+				aguardarDispositivoAndroidLigar();
+			}
+		}
+
+		return "Dispositivo Carregado!";
+
+	}
+	
+	public static AndroidDriver<AndroidElement> initializeAndroidDriver(String deviceName, String appPath) throws InterruptedException, IOException, URISyntaxException {
+
+		DesiredCapabilities caps = new DesiredCapabilities();
+		caps.setCapability(MobileCapabilityType.PLATFORM_VERSION, "6.0");
+		caps.setCapability(MobileCapabilityType.PLATFORM_NAME,"Android");
+		caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 300);
+		
+		if (appPath == null) {
+			//caps.setCapability(MobileCapabilityType.APP, "Browser");
+			caps.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
+			caps.setCapability(MobileCapabilityType.APP_PACKAGE, "com.android.chrome");
+			caps.setCapability(MobileCapabilityType.APP_ACTIVITY, "com.google.android.apps.chrome.ChromeTabbedActivity");
+		} else {
+			caps.setCapability(MobileCapabilityType.APP, new File(appPath).getAbsolutePath());
+			caps.setCapability(MobileCapabilityType.APP_PACKAGE, Constants.pacote);
+			caps.setCapability(MobileCapabilityType.APP_ACTIVITY, Constants.classe);
+		}
+
+		if (deviceName == null){ 
+			caps.setCapability(MobileCapabilityType.DEVICE_NAME,"Emulator"); 
+		} else {
+			caps.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName); 
+		}
+
+		if(verificarSeHaDispositivosAndroidAtivos()){
+			AndroidDriver<AndroidElement> driver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+			driver.manage().timeouts().implicitlyWait(4, TimeUnit.MINUTES);
+			return driver;
+		} else {
+			Runtime.getRuntime().exec(carregarLinks().getProperty(ViewConstants.Commands.EMULATOR_PATH)+"emulator -netdelay none -netspeed full -avd Nexus_5X_API23");
+			System.out.println(aguardarDispositivoAndroidLigar());
+			AndroidDriver<AndroidElement> driver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+			driver.manage().timeouts().implicitlyWait(4, TimeUnit.MINUTES);
+			return driver;
+		}
+
+	}
+	
+	
 	
 }
