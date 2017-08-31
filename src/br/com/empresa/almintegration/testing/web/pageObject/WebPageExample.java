@@ -5,30 +5,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import br.com.empresa.almintegration.testing.web.WebTestCase;
+import net.thucydides.core.annotations.DefaultUrl;
 
-public class WebPortal_Chamados extends WebTestCase {
+@DefaultUrl("http://www.google.com.br")
+public class WebPageExample extends WebTestCase {
 
 	protected WebDriver driver;
 	
-	@FindBy(id="grdItens")
-	private WebElement gradeItens;
-	
-	//------------------------- getter and setters -------------------------
-	
-	public WebElement getGradeItens() {
-		return gradeItens;
-	}
-
-	public void setGradeItens(WebElement gradeItens) {
-		this.gradeItens = gradeItens;
-	}
-	
-	//Gerar logica (METODO) para obter os valores dos indices da tabela
-	
+	@FindBy(id="lst-ib")
+	private WebElement seachField;
 	
 	//------------------------------------------------------------------------------------------------------------------------------
 	
-	public WebPortal_Chamados(WebDriver driver) {
+	public WebPageExample(WebDriver driver) {
 		this.driver = driver;
 	}
 
@@ -52,4 +41,12 @@ public class WebPortal_Chamados extends WebTestCase {
 		return driver.getTitle();
 	}
 	
+	public void clickOnSearchField() {
+		seachField.click();
+	}
+	
+	public void insertValueOnSearchField(String keys){
+		seachField.sendKeys(keys);
+	}
+
 }
