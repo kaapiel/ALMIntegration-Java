@@ -1,4 +1,4 @@
-package br.com.empresa.almintegration.execution;
+package br.com.empresa.almintegration.test.execution;
 
 import java.io.File;
 import java.io.FileNotFoundException;

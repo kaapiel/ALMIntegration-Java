@@ -26,7 +26,7 @@ import javax.mail.internet.MimeMultipart;
 
 import org.junit.runner.Result;
 
-import br.com.empresa.almintegration.execution.PlayTestCases;
+import br.com.empresa.almintegration.test.execution.PlayTestCases;
 
 public class SendEmail extends PlayTestCases {
 	

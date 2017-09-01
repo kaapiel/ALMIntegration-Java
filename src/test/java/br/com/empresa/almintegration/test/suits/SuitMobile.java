@@ -1,9 +1,9 @@
-package br.com.empresa.almintegration.suits;
+package br.com.empresa.almintegration.test.suits;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import br.com.empresa.almintegration.mobile.MobileTestExample;
+import br.com.empresa.almintegration.test.mobile.MobileTestExample;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ MobileTestExample.class })

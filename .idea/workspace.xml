@@ -26,9 +26,11 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/br/com/empresa/almintegration/evidences/PDFConverter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="307">
-              <caret line="22" column="8" lean-forward="false" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
+              <caret line="24" column="8" lean-forward="false" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <marker date="1504281679415" expanded="true" signature="763:1040" ph="{...}" />
+                <marker date="1504281679415" expanded="true" signature="1073:2135" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -38,7 +40,7 @@
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="6630">
-              <caret line="390" column="0" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="390" selection-end-column="0" />
+              <caret line="390" column="0" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="390" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -336,9 +338,11 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/empresa/almintegration/evidences/PDFConverter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="307">
-          <caret line="22" column="8" lean-forward="false" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
+          <caret line="24" column="8" lean-forward="false" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
+            <marker date="1504281679415" expanded="true" signature="763:1040" ph="{...}" />
+            <marker date="1504281679415" expanded="true" signature="1073:2135" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -346,7 +350,7 @@
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6630">
-          <caret line="390" column="0" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="390" selection-end-column="0" />
+          <caret line="390" column="0" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="390" selection-end-column="0" />
           <folding />
         </state>
       </provider>
