@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import br.com.empresa.almintegration.test.execution.PlayTestCases;
+import br.com.empresa.almintegration.execution.PlayTestCases;
 
 /**
  *

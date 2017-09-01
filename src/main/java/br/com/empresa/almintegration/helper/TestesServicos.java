@@ -32,10 +32,10 @@ import br.com.empresa.almintegration.alm.infrastructure.Constants;
 import br.com.empresa.almintegration.alm.test.GetEntities;
 import br.com.empresa.almintegration.constants.ConstantsServices;
 import br.com.empresa.almintegration.constants.ViewConstants;
+import br.com.empresa.almintegration.execution.PlayTestCases;
 import br.com.empresa.almintegration.helper.imageutils.JSON2Image;
 import br.com.empresa.almintegration.model.ServiceResponse;
 import br.com.empresa.almintegration.model.WebEvidence;
-import br.com.empresa.almintegration.test.execution.PlayTestCases;
 
 public class TestesServicos extends PlayTestCases {
 

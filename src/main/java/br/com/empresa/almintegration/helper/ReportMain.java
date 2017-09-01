@@ -25,7 +25,7 @@ import org.junit.runner.notification.Failure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.empresa.almintegration.test.execution.PlayTestCases;
+import br.com.empresa.almintegration.execution.PlayTestCases;
 
 /**
  * Fabrica<BR>

@@ -1,4 +1,4 @@
-package br.com.empresa.almintegration.test.execution;
+package br.com.empresa.almintegration.execution;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,8 +17,8 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.runner.Result;
 import org.junit.runners.Suite.SuiteClasses;
-import org.odftoolkit.odfdom.converter.pdf.PdfConverter;
-import org.odftoolkit.odfdom.converter.pdf.PdfOptions;
+//import org.odftoolkit.odfdom.converter.pdf.PdfConverter; --DESCOMENTAR A LINHA PARA CONVERTER PARA PDF
+//import org.odftoolkit.odfdom.converter.pdf.PdfOptions; --DESCOMENTAR A LINHA PARA CONVERTER PARA PDF
 import org.odftoolkit.odfdom.doc.OdfDocument;
 import org.odftoolkit.odfdom.dom.element.office.OfficeTextElement;
 import org.odftoolkit.odfdom.dom.element.table.TableTableElement;
@@ -386,9 +386,9 @@ public class PlayTestCases extends ReportMain {
 			evidencesWriter.save(odtFilename);
 
 			out = new FileOutputStream(pdfFilename);
-			PdfOptions options = PdfOptions.create();
+			//PdfOptions options = PdfOptions.create(); --DESCOMENTAR A LINHA PARA CONVERTER PARA PDF
 			OdfDocument odfDocument = OdfDocument.loadDocument(odtFilename);
-			PdfConverter.getInstance().convert(odfDocument, out, options);
+			//PdfConverter.getInstance().convert(odfDocument, out, options); --DESCOMENTAR A LINHA PARA CONVERTER PARA PDF
 
 			OfficeTextElement officeTextElement = evidencesWriter.getTextDocument().getContentRoot();
 			TextPElement tocPElement = evidencesWriter.getTOCPElement();
