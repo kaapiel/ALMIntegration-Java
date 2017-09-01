@@ -107,7 +107,7 @@ public class PlayTestCases extends ReportMain {
 
 		try {
 
-			playSuit("975", SUITweb_SPRINTxx_ESTORIAxx.class);
+			playSuit("testSetId from ALM", SUITweb_SPRINTxx_ESTORIAxx.class);
 
 		} finally {
 
@@ -159,7 +159,7 @@ public class PlayTestCases extends ReportMain {
 		currentUseCase = g.getFieldListFromJson(g.getJsonUseCase(c.USERNAME, c.PASSWORD, "json", testSetId), "name")
 				.get(0);
 
-		LOGGER.info("[" + new Date() + "] Obtendo casos de teste do ALM referente ao caso de uso/estória " + currentUseCase);
+		LOGGER.info("[" + new Date() + "] Obtendo casos de teste do ALM referente ao caso de uso/estoria " + currentUseCase);
 
 		targetCycle = g.getFieldListFromJson(queryedJsonInstances, "assign-rcyc").get(0);
 		testInstancesId = g.getFieldListFromJson(nonQueryedJsonInstances, "id");
@@ -212,14 +212,8 @@ public class PlayTestCases extends ReportMain {
 
 		} catch (NullPointerException npe) {
 			ArrayList<String> a = new ArrayList<String>();
-			a.add("retorno null");
-			a.add("retorno null 2");
-			a.add("retorno null 3");
-			a.add("retorno null 4");
-			a.add("retorno null 5");
-			return a; // retorna null, pois a execucao esta sendo feita via
-						// teste unitario
-
+			a.add("retorno null"); a.add("retorno null 2"); a.add("retorno null 3"); a.add("retorno null 4"); a.add("retorno null 5");
+			return a; // retorna null, pois a execucao esta sendo feita via teste unitario
 		} catch (Exception e) {
 			// erro no g.getJsonRunSteps
 		}
