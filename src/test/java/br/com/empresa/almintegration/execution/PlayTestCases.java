@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runners.Suite.SuiteClasses;
 //import org.odftoolkit.odfdom.converter.pdf.PdfConverter; --DESCOMENTAR A LINHA PARA CONVERTER PARA PDF
@@ -48,6 +49,7 @@ import br.com.empresa.almintegration.helper.TestesServicos;
 import br.com.empresa.almintegration.helper.Utils;
 import br.com.empresa.almintegration.helper.imageutils.JSON2Image;
 import br.com.empresa.almintegration.model.ServiceResponse;
+import br.com.empresa.almintegration.suits.SUITweb_SPRINTxx_ESTORIAxx;
 
 public class PlayTestCases extends ReportMain {
 
@@ -105,6 +107,7 @@ public class PlayTestCases extends ReportMain {
 
 		try {
 
+			playSuit("975", SUITweb_SPRINTxx_ESTORIAxx.class);
 
 		} finally {
 
@@ -156,7 +159,7 @@ public class PlayTestCases extends ReportMain {
 		currentUseCase = g.getFieldListFromJson(g.getJsonUseCase(c.USERNAME, c.PASSWORD, "json", testSetId), "name")
 				.get(0);
 
-		LOGGER.info("[" + new Date() + "] Obtendo casos de teste do ALM referente ao caso de uso " + currentUseCase);
+		LOGGER.info("[" + new Date() + "] Obtendo casos de teste do ALM referente ao caso de uso/estória " + currentUseCase);
 
 		targetCycle = g.getFieldListFromJson(queryedJsonInstances, "assign-rcyc").get(0);
 		testInstancesId = g.getFieldListFromJson(nonQueryedJsonInstances, "id");
@@ -286,12 +289,16 @@ public class PlayTestCases extends ReportMain {
 		try {
 			String classe = this.getClass().getSimpleName();
 			classe += (testFailed) ? ConstantsServices.FAIL : ConstantsServices.PASSED;
+			
+			//validaTipoDeTeste()
+			
 			JSON2Image json2Image = null;
 			if (sr != null) {
 				json2Image = new TestesServicos().createImagesFromServiceResponse(sr, currentRunStep.currentStepId,
 						classe, stepOrder);
 			}
 
+			
 			ArrayList<String> imagePath = json2Image.getImagesPath();
 
 			currentRunStep.setField(RunStep.FIELDS.ATTACHMENT, imagePath.toString());
@@ -547,4 +554,14 @@ public class PlayTestCases extends ReportMain {
 		this.evidencesPath = evidencesPath;
 	}
 
+	
+	private static void playSuit(String testSetId, Class<?> suitClass) throws Exception{
+		
+		init(testSetId);
+		putCTs(suitClass);
+		Result suitWeb = JUnitCore.runClasses(suitClass);
+		result.put(suitClass.getSimpleName(), suitWeb);
+		
+	}
+	
 }

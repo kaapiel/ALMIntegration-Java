@@ -7,6 +7,6 @@ import br.com.empresa.almintegration.mainframe.MainFrameTestExample;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ MainFrameTestExample.class })
-public class SuitMainFrame {
+public class SUITmainframe_SPRINTxx_ESTORIAxx {
 
 }

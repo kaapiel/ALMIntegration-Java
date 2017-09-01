@@ -7,6 +7,6 @@ import br.com.empresa.almintegration.mobile.MobileTestExample;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ MobileTestExample.class })
-public class SuitMobile {
+public class SUITmobile_SPRINTxx_ESTORIAxx {
 
 }

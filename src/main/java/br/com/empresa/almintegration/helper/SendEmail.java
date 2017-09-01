@@ -85,7 +85,7 @@ public class SendEmail extends PlayTestCases {
 			
 			String bodyText = sb.toString().replaceAll(", \\.", "\\.");
 			
-			message.setSubject("[Fábrica CLIENTE_NAME] Status Report de Automação");
+			message.setSubject("[Fábrica CUSTOMER_NAME] Status Report de Automação");
 			message.setText("Este é o relatório da execução dos testes automatizados referente a:\n"
 					+ bodyText + "\n"
 					+ "Em anexo está a planilha de relatórios com o descritivo de cada teste.\n"

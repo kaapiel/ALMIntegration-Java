@@ -7,6 +7,6 @@ import br.com.empresa.almintegration.database.DataBaseTestExample;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ DataBaseTestExample.class })
-public class SuitDataBase {
+public class SUITdatabase_SPRINTxx_ESTORIAxx {
 
 }

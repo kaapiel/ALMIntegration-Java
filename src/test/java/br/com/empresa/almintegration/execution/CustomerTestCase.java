@@ -89,10 +89,10 @@ public class CustomerTestCase extends PlayTestCases {
 			try {
 				String classPath = Utils.getPath(classe);
 				String filePath = settings.getConfig().getPaths().getEvidencia() + classPath;
-				//String odtFilename = filePath + classe + ".odt";
-				String pdfFilename = filePath + classe + ".pdf";
-				//g.uploadAttachments(c.USERNAME, c.PASSWORD, runId, ViewConstants.ALM.TestLab.RUNS, odtFilename);
-				g.uploadAttachments(c.USERNAME, c.PASSWORD, runId, ViewConstants.ALM.TestLab.RUNS, pdfFilename);
+				String odtFilename = filePath + classe + ".odt";
+				//String pdfFilename = filePath + classe + ".pdf";
+				g.uploadAttachments(c.USERNAME, c.PASSWORD, runId, ViewConstants.ALM.TestLab.RUNS, odtFilename);
+				//g.uploadAttachments(c.USERNAME, c.PASSWORD, runId, ViewConstants.ALM.TestLab.RUNS, pdfFilename);
 				
 				LOGGER.info("["+new Date()+"] Upload de evidencias realizado para o ALM.");
 				
