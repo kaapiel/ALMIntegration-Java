@@ -22,7 +22,6 @@
 			<version>3.3.1</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/com.oracle/ojdbc14 -->
 		<dependency>
 			<groupId>com.oracle</groupId>
@@ -37,14 +36,12 @@
 			<version>0.9.275</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-grizzly2-http -->
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-grizzly2-http</artifactId>
 			<version>2.25</version>
 		</dependency>
-
 
 		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server -->
 		<dependency>
@@ -53,14 +50,12 @@
 			<version>2.25</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/org.glassfish.grizzly/grizzly-http-server -->
 		<dependency>
 			<groupId>org.glassfish.grizzly</groupId>
 			<artifactId>grizzly-http-server</artifactId>
 			<version>2.3.28</version>
 		</dependency>
-
 
 		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
 		<dependency>
@@ -76,13 +71,11 @@
 			<version>2.0.1</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itextpdf</artifactId>
 			<version>5.0.6</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
@@ -182,7 +175,6 @@
 			<version>1.0.6</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -211,7 +203,6 @@
 			<version>1.22.0</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client -->
 		<dependency>
 			<groupId>com.google.api-client</groupId>
@@ -225,6 +216,7 @@
 			<artifactId>pdfbox</artifactId>
 			<version>2.0.4</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/com.levigo.jbig2/levigo-jbig2-imageio -->
 		<dependency>
 			<groupId>com.levigo.jbig2</groupId>
@@ -345,9 +337,9 @@
 	</dependencies>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+	<!--	<sourceDirectory>src/main/java</sourceDirectory>
+			<testSourceDirectory>src/test/java</testSourceDirectory>   -->
 		<plugins>
-
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.6</version>
@@ -370,8 +362,7 @@
 					</descriptorRefs>
 				</configuration>
 			</plugin>
-
-
+			
 		</plugins>
 
 	</build>
