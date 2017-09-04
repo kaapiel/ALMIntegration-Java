@@ -58,10 +58,27 @@ novos arquivos.
 		- Estória
 			- Test Set Id
 			
+Ao executar o arquivo gerado .jar (gera-se um arquivo com todas as dependências internas) passa-se os parâmetros do ambiente e da 
+versão do ALM a ser executadas. #### Ex.: 'java -jar JarName.java HMLEnv NEW'. ####
+			
 ## 2 - XML Settings File ##
 
-No arquivo Settings.xml se encontram todas as configurações gerais do projeto. Na primeira tag chamada '<Env>' se encontra o valor do 
+No arquivo Settings.xml se encontram todas as configurações gerais do projeto. Na primeira tag chamada 'Env' se encontra o valor do 
 ambiente de testes onde realizaremos as nossas execuções. Este valor deve ser exatamente como está o nome do arquivo, ex.: HMLEnv.
 
-- dsdsd
-- dsdsds
+- Settings - Neste XML temos as seguintes informações:
+	- Enviroment
+	- Configurations
+		- ALM Configurations
+			- Credenciais
+			- Configurações
+		- Evicências
+			- Configurações
+		- Email
+			- Credenciais
+			- HOST | PORTA
+		- Paths
+		- Mensagens
+
+## 3 - XML Env File ##
+
