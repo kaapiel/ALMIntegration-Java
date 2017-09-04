@@ -59,7 +59,8 @@ novos arquivos.
 			- Test Set Id
 			
 Ao executar o arquivo gerado .jar (gera-se um arquivo com todas as dependências internas) passa-se os parâmetros do ambiente e da 
-versão do ALM a ser executadas. #### Ex.: 'java -jar JarName.java HMLEnv NEW'. ####
+versão do ALM a ser executadas.
+#### Ex.: 'java -jar JarName.java HMLEnv NEW'. ####
 			
 ## 2 - XML Settings File ##
 
