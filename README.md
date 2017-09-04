@@ -103,6 +103,7 @@ Estas são as tecnologias e estruturas que utilizamos no projeto:
 ## 4 - Estruturas de suites e testes ##
 
 Para o perfeito funcionamento do framework, faz-se necessário alguns padrões:
+
 - Caso de teste (classe) - SPRINTxx_ESTORIAxx_CTxxx.java
 - Suite de teste (classe) - Suit_SPRINTxx_ESTORIAxx.java
 
