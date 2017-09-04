@@ -107,7 +107,15 @@ Para o perfeito funcionamento do framework, faz-se necessário alguns padrões:
 - Suite de teste (classe) - Suit_SPRINTxx_ESTORIAxx.java
 
 
-- Todos os testes (@Test) deve herdar CustomerTestCase (que contém os métodos @Before e @After) para gerenciar a integração com o ALM (passar testes, realizar upload de evidencias, etc).
-- O padrão do nome dos casos de testes deve ser 
-- Todos os testes devem conter @Step("Descrição do Step")
-- No fim de cada step (@Step) deve-se utilizar o método de atualização dos steps do ALM updateRunStepStatus(getRunIdsList().get(stepOrder++)); Além disso, dentro de todo o tratamento de exceção deve-se conter a atualização do teste (failed ou passed) - currentRunStep.setField(RunStep.FIELDS.STATUS, "Passed");
+- Todos os testes (@ Test) devem herdar CustomerTestCase (que contém os métodos @ Before e @ After) para gerenciar a integração com o ALM (passar testes, realizar upload de evidencias, etc).
+- No fim de cada step (@ Step) deve-se utilizar o método de atualização dos steps do ALM updateRunStepStatus(getRunIdsList().get(stepOrder++)); Além disso, dentro de todo o tratamento de exceção deve-se conter a atualização do teste (failed ou passed) - currentRunStep.setField(RunStep.FIELDS.STATUS, "Passed");
+- Todos os testes devem conter @ Step("Descrição do Step")
+
+
+
+## 5 - Estruturas de execuções ##
+
+A execução da suite de testes deverá ocorrer através da classe PlayTestCases.java.
+- Esta classe é responsável por executar os testes das suítes. Só serão visto os resultados e evidencias no ALM se executados diretamente desta classe.
+- Testes executados "unitariamente" não serão refletidos no ALM, apenas nas evidencias locais.
+- Através do método playSuit(testSetId, SuitClass) é realizada a execução dos testes. Utilizar este método dentro do try catch vazio da classe PlayTestCases.java
