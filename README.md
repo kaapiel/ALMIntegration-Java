@@ -11,7 +11,7 @@ atualizar o status de uma 'Test Instance', fazer o upload de evidências e etc.
 
 ### O que precisamos ter em mente antes de iniciar as configurações? ###
 
-* 1 - HMLEnv & OLD params
+* 1 - HMLEnv|TIEnv & NEW|OLD params
 * 2 - XML Settings file - alm project, credentials...
 * 3 - XML Env file - XPath, credentials, emails, endpoints, client id...
 * 4 - XML ALM File - test set id, Java objecta from xml (http://pojo.sodhanalibrary.com/)
@@ -29,8 +29,15 @@ atualizar o status de uma 'Test Instance', fazer o upload de evidências e etc.
 
 * Owner/Admin - Gabriel Aguido Fraga
 
-## 1 - HMLEnv & OLD params ##
+## 1 - HMLEnv|TIEnv & NEW|OLD params ##
 
-- dsfdsfdsfds
-	- dsfdsfdsfds
-		- sdfsdfdsfds
+Utilizamos no projeto arquivos XML para definir todos os tipos de constantes ou variáveis mutáveis. 
+Repare que existem dois arquivos em nossa estrutura, um chamado HMLEnv.xml e outro chamado TIEnv.xml. Nestes arquivos
+contém configurações de ambientes (Homologação e teste integrado respectivamente). Caso seja necessário criar mais 
+arquivos de configurações de ambientes basta apenas seguir o mesmo modelo.
+
+- HMLEnv | TIEnv - Neste XML temos as seguintes informações:
+	- MainFrame
+	- Banco de dados
+	- Identificadores web
+	- Identificadores web services
