@@ -50,6 +50,7 @@ import br.com.empresa.almintegration.helper.Utils;
 import br.com.empresa.almintegration.helper.imageutils.JSON2Image;
 import br.com.empresa.almintegration.model.ServiceResponse;
 import br.com.empresa.almintegration.suits.SUITweb_SPRINTxx_ESTORIAxx;
+import br.com.empresa.almintegration.suits.SUITwebservice_SPRINTxx_ESTORIAxx;
 
 public class PlayTestCases extends ReportMain {
 
@@ -108,6 +109,7 @@ public class PlayTestCases extends ReportMain {
 		try {
 
 			playSuit("975", SUITweb_SPRINTxx_ESTORIAxx.class);
+			playSuit("975", SUITwebservice_SPRINTxx_ESTORIAxx.class);
 
 		} finally {
 
