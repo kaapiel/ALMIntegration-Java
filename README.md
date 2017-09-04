@@ -35,9 +35,33 @@ Utilizamos no projeto arquivos XML para definir todos os tipos de constantes ou 
 Repare que existem dois arquivos em nossa estrutura, um chamado HMLEnv.xml e outro chamado TIEnv.xml. Nestes arquivos
 contém configurações de ambientes (Homologação e teste integrado respectivamente). Caso seja necessário criar mais 
 arquivos de configurações de ambientes basta apenas seguir o mesmo modelo.
+Repare também que existem dois arquivos, um chamado oldALM.xml e outro chamado newALM.xml. Nestes arquivos podemos 
+encontrar os 'test set id' das suites de testes do ALM. Caso hajam outras versões de ALM podem ser acrescentados
+novos arquivos.
 
 - HMLEnv | TIEnv - Neste XML temos as seguintes informações:
 	- MainFrame
+		- Credenciais
+		- IP | PORTA
 	- Banco de dados
+		- Credenciais
+		- IP | PORTA
 	- Identificadores web
+		- Credenciais
+		- XPaths, Ids, etc
 	- Identificadores web services
+		- Credenciais | Client id
+		- Endpoints
+		
+- newALM | oldALM - Neste XML temos as seguintes informações:
+	-  Sprint
+		- Estória
+			- Test Set Id
+			
+## 2 - XML Settings File ##
+
+No arquivo Settings.xml se encontram todas as configurações gerais do projeto. Na primeira tag chamada '<Env>' se encontra o valor do 
+ambiente de testes onde realizaremos as nossas execuções. Este valor deve ser exatamente como está o nome do arquivo, ex.: HMLEnv.
+
+- dsdsd
+- dsdsds
