@@ -115,7 +115,18 @@ Para o perfeito funcionamento do framework, faz-se necessário alguns padrões:
 
 ## 5 - Estruturas de execuções ##
 
-A execução da suite de testes deverá ocorrer através da classe PlayTestCases.java.
+A execução da suite de testes deverá ocorrer através da classe
+#### PlayTestCases.java ####
 - Esta classe é responsável por executar os testes das suítes. Só serão visto os resultados e evidencias no ALM se executados diretamente desta classe.
 - Testes executados "unitariamente" não serão refletidos no ALM, apenas nas evidencias locais.
 - Através do método playSuit(testSetId, SuitClass) é realizada a execução dos testes. Utilizar este método dentro do try catch vazio da classe PlayTestCases.java
+
+
+
+## 6 - Evidências ##
+
+Em tempo de execução são gerados os "prints" das evidencias e armazenados na pasta criada chamada "evidencias". 
+Após o término de cada teste, é gerado um arquivo word (.odt) com um template pré-definido. 
+Neste arquivo contém todos os prints do teste que a logica do framework gerou para criar o arquivo de evidencia.
+- Ao término de execução de suítes, é criada uma pasta chamada "evidenciasConsolidadas". Dentro desta pasta é possível ver todas as execuções de suítes que foram executadas. Lá também será possível visualizar todas as evidencias individualmente separadas pelas pastas "PASSED" ou "FAILED".
+- Todo término de execução de suíte de testes é gerado um arquivo excel com todos os dados de execução, dentre eles tempo individual de teste, percentual de testes OK, trace de erro, mensagens e afins. Este arquivo é enviado por email automaticamente para o endereço eletrônico configurado no arquivo de configurações.
