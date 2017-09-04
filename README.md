@@ -102,3 +102,12 @@ Estas são as tecnologias e estruturas que utilizamos no projeto:
 
 ## 4 - Estruturas de suites e testes ##
 
+Para o perfeito funcionamento do framework, faz-se necessário alguns padrões:
+- Caso de teste (classe) - SPRINTxx_ESTORIAxx_CTxxx.java
+- Suite de teste (classe) - Suit_SPRINTxx_ESTORIAxx.java
+
+
+- Todos os testes (@Test) deve herdar CustomerTestCase (que contém os métodos @Before e @After) para gerenciar a integração com o ALM (passar testes, realizar upload de evidencias, etc).
+- O padrão do nome dos casos de testes deve ser 
+- Todos os testes devem conter @Step("Descrição do Step")
+- No fim de cada step (@Step) deve-se utilizar o método de atualização dos steps do ALM updateRunStepStatus(getRunIdsList().get(stepOrder++)); Além disso, dentro de todo o tratamento de exceção deve-se conter a atualização do teste (failed ou passed) - currentRunStep.setField(RunStep.FIELDS.STATUS, "Passed");
