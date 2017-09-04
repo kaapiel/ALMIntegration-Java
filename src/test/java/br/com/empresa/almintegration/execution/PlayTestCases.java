@@ -53,28 +53,24 @@ import br.com.empresa.almintegration.suits.SUITweb_SPRINTxx_ESTORIAxx;
 
 public class PlayTestCases extends ReportMain {
 
-	protected static String runId;
+	protected static String runId, targetCycle, currentUseCase, stepNumber;
+	protected String evidencesPath;
+	private static String testSetId;
+	public String currentRunStepid;
 	protected static ArrayList<TestInstance> til;
-	private static ArrayList<String> testInstanceName;
-	private static ArrayList<String> testInstancesId;
-	private static String targetCycle;
+	private static ArrayList<String> testInstanceName, testInstancesId;
 	protected static Constants c;
 	protected static GetEntities g;
 	public static HashMap<String, Result> result = new HashMap<String, Result>();
 	public static Map<String, CT> ctsSuite = new HashMap<String, CT>();
 	protected static List<RunStep> runStep = new ArrayList<RunStep>();
-	protected static String stepNumber;
-	protected String evidencesPath;
 	protected RunStep currentRunStep;
+	protected RunSteps runSteps;
+	public static Settings settings;
+	public static EnvSettings enviromentSettings;
 	protected static int stepOrder;
 	protected EvidencesWriter evidencesWriter;
 	public ServiceResponse sr;
-	private static String testSetId;
-	protected static String currentUseCase;
-	protected RunSteps runSteps;
-	String currentRunStepid;
-	public static Settings settings;
-	public static EnvSettings enviromentSettings;
 	public static br.com.empresa.almintegration.alm.configuration.almModel.Settings almSettings;
 	private static Logger LOGGER = LoggerFactory.getLogger(PlayTestCases.class.getSimpleName());
 
@@ -88,12 +84,7 @@ public class PlayTestCases extends ReportMain {
 
 			validateArgs(args);
 
-			settings.setEnv(args[0]);
-
-			settings.getConfig().getALM().getProject()
-					.setProject(args[1] == br.com.empresa.almintegration.constants.Constants.NEW
-							? br.com.empresa.almintegration.constants.Constants.PROJECT_NEW
-							: br.com.empresa.almintegration.constants.Constants.PROJECT_OLD);
+			
 
 		} catch (Exception e) {
 
@@ -147,6 +138,13 @@ public class PlayTestCases extends ReportMain {
 					+ "no projeto PJ07329_Cred_Release1.");
 			throw new NullPointerException();
 		}
+		
+		settings.setEnv(args[0]);
+
+		settings.getConfig().getALM().getProject()
+				.setProject(args[1] == br.com.empresa.almintegration.constants.Constants.NEW
+						? br.com.empresa.almintegration.constants.Constants.PROJECT_NEW
+						: br.com.empresa.almintegration.constants.Constants.PROJECT_OLD);
 	}
 
 	private static void init(String testSetId) throws Exception {
