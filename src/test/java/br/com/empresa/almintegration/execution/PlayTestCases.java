@@ -88,7 +88,7 @@ public class PlayTestCases extends ReportMain {
 		try {
 
 			playSuit("975", SUITweb_SPRINTxx_ESTORIAxx.class);
-			playSuit("975", SUITwebservice_SPRINTxx_ESTORIAxx.class);
+			//playSuit("975", SUITwebservice_SPRINTxx_ESTORIAxx.class);
 
 		} finally {
 			gerarRelatorio();
