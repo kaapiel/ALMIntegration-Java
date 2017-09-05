@@ -29,6 +29,8 @@ public class CustomerTestCase extends PlayTestCases {
 
 	@Before
 	public void antesTeste() throws Exception{
+		
+		initSettings(args);
 		stepOrder = 0;
 		String classe = this.getClass().getSimpleName();
 

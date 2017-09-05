@@ -20,9 +20,10 @@ public class SPRINTxx_ESTORIAxxxx_CT002 extends CustomerTestCase {
 	private String endpoint;
 	private String cep = "06408200";
 	private StringBuilder RESPONSE = new StringBuilder();
+	private HttpResponse response;
 
 	@Before
-	public void beforeTest() throws Exception{
+	public void beforeTest() throws Exception {
 		endpoint = "http://correiosapi.apphb.com/cep/" + cep;
 	}
 
@@ -35,15 +36,15 @@ public class SPRINTxx_ESTORIAxxxx_CT002 extends CustomerTestCase {
 	}
 
 	@Step("Realizar request no serviço dos correios (cep)")
-	public void step1(){
-		try{
+	public void step1() {
+		try {
 			HttpGet get = new HttpGet(endpoint);
 			HttpClient dhc = new DefaultHttpClient();
 
-			HttpResponse response = null;
-			try{
+			response = null;
+			try {
 				response = dhc.execute(get);
-			}catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
 
@@ -54,6 +55,8 @@ public class SPRINTxx_ESTORIAxxxx_CT002 extends CustomerTestCase {
 				RESPONSE.append(line).append("\n");
 			}
 
+			sr = getServiceResponse(null, endpoint, cep, 200, null,
+					getClass(), runId);
 			currentRunStep.setField(RunStep.FIELDS.STATUS, "Passed");
 		} catch (Exception e) {
 			currentRunStep.setField(RunStep.FIELDS.STATUS, "Failed");
@@ -61,10 +64,11 @@ public class SPRINTxx_ESTORIAxxxx_CT002 extends CustomerTestCase {
 	}
 
 	@Step("Receber response do serviço dos correios")
-	public void step2(){
-		try{
+	public void step2() {
+		try {
 
-			System.out.println(RESPONSE);
+			sr = getServiceResponse(RESPONSE.toString(), endpoint, cep, 200, response.getStatusLine().getStatusCode(),
+					getClass(), runId);
 			currentRunStep.setField(RunStep.FIELDS.STATUS, "Passed");
 		} catch (Exception e) {
 			currentRunStep.setField(RunStep.FIELDS.STATUS, "Failed");
@@ -72,8 +76,9 @@ public class SPRINTxx_ESTORIAxxxx_CT002 extends CustomerTestCase {
 	}
 
 	@After
-	public void afterTest(){
-
+	public void afterTest() {
+		sr = getServiceResponse(RESPONSE.toString(), endpoint, cep, 200, response.getStatusLine().getStatusCode(),
+				getClass(), runId);
 	}
 
 }
