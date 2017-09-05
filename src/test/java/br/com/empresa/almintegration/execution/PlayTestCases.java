@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -13,6 +14,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.xml.bind.JAXBException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.runner.JUnitCore;
@@ -54,57 +59,31 @@ import br.com.empresa.almintegration.suits.SUITwebservice_SPRINTxx_ESTORIAxx;
 
 public class PlayTestCases extends ReportMain {
 
-	protected static String runId;
+	protected static String runId, targetCycle, currentUseCase, stepNumber;
+	protected String evidencesPath;
+	private static String testSetId;
+	public String currentRunStepid;
 	protected static ArrayList<TestInstance> til;
-	private static ArrayList<String> testInstanceName;
-	private static ArrayList<String> testInstancesId;
-	private static String targetCycle;
+	private static ArrayList<String> testInstanceName, testInstancesId;
 	protected static Constants c;
 	protected static GetEntities g;
 	public static HashMap<String, Result> result = new HashMap<String, Result>();
 	public static Map<String, CT> ctsSuite = new HashMap<String, CT>();
 	protected static List<RunStep> runStep = new ArrayList<RunStep>();
-	protected static String stepNumber;
-	protected String evidencesPath;
 	protected RunStep currentRunStep;
+	protected RunSteps runSteps;
+	public static Settings settings;
+	public static EnvSettings enviromentSettings;
 	protected static int stepOrder;
 	protected EvidencesWriter evidencesWriter;
 	public ServiceResponse sr;
-	private static String testSetId;
-	protected static String currentUseCase;
-	protected RunSteps runSteps;
-	String currentRunStepid;
-	public static Settings settings;
-	public static EnvSettings enviromentSettings;
 	public static br.com.empresa.almintegration.alm.configuration.almModel.Settings almSettings;
 	private static Logger LOGGER = LoggerFactory.getLogger(PlayTestCases.class.getSimpleName());
 
 	public static void main(String[] args) throws Exception {
 
 		LOGGER.info("[" + new Date() + "] Iniciando a automacao...");
-
-		settings = new Utils().getSettings();
-
-		try {
-
-			validateArgs(args);
-
-			settings.setEnv(args[0]);
-
-			settings.getConfig().getALM().getProject()
-					.setProject(args[1] == br.com.empresa.almintegration.constants.Constants.NEW
-							? br.com.empresa.almintegration.constants.Constants.PROJECT_NEW
-							: br.com.empresa.almintegration.constants.Constants.PROJECT_OLD);
-
-		} catch (Exception e) {
-
-			LOGGER.error("[" + new Date() + "] Parâmetros inválidos. "
-					+ "Tente \"java -jar MainClass.java 'ENVIROMENT' (TIEnv | HMLEnv | PRDEnv) 'ALM VERSION' (OLD | NEW)\"");
-			return;
-		}
-
-		enviromentSettings = new Utils().getEnvSettings(settings);
-		almSettings = new Utils().getALMConfigs(settings);
+		validateArgs(args);
 
 		try {
 
@@ -112,27 +91,35 @@ public class PlayTestCases extends ReportMain {
 			playSuit("975", SUITwebservice_SPRINTxx_ESTORIAxx.class);
 
 		} finally {
-
-			String pathName = settings.getConfig().getPaths().getOutputDirBaseEvidences();
-
-			if (!new File(pathName).exists()) {
-				new File(pathName).mkdirs();
-			}
-			String filePathAndName = gerarRelatorioXls(PlayTestCases.class.getSimpleName());
-
-			new SendEmail().generateAndSendEmail(new File(filePathAndName), result);
-
-			Thread.sleep(10000);
-			Utils.arquivarEvidencias(PlayTestCases.class.getSimpleName());
-
-			Thread.sleep(6000);
-			Utils.arquivarEvidenciasConsolidadas();
-
+			gerarRelatorio();
 		}
 
 	}
 
-	private static void validateArgs(String[] args) throws NullPointerException {
+	private static void gerarRelatorio() throws Exception {
+
+		String pathName = settings.getConfig().getPaths().getOutputDirBaseEvidences();
+
+		if (!new File(pathName).exists()) {
+			new File(pathName).mkdirs();
+		}
+		
+		sendReportEmail(gerarRelatorioXls(PlayTestCases.class.getSimpleName()));
+
+		Thread.sleep(10000);
+		Utils.arquivarEvidencias(PlayTestCases.class.getSimpleName());
+
+		Thread.sleep(6000);
+		Utils.arquivarEvidenciasConsolidadas();
+		
+	}
+
+	private static void sendReportEmail(String filePathAndName) throws AddressException, FileNotFoundException, MessagingException, IOException, URISyntaxException {
+		new SendEmail().generateAndSendEmail(new File(filePathAndName), result);
+		
+	}
+
+	private static void validateArgs(String[] args) {
 
 		if(!args[0].equals(br.com.empresa.almintegration.constants.Constants.ENV_TI) && 
 				!args[0].equals(br.com.empresa.almintegration.constants.Constants.ENV_HML) && 
@@ -149,6 +136,24 @@ public class PlayTestCases extends ReportMain {
 					+ "no projeto PJ07329_Cred_Release1.");
 			throw new NullPointerException();
 		}
+		
+		try{
+			settings = new Utils().getSettings();
+			settings.setEnv(args[0]);
+			
+			settings.getConfig().getALM().getProject()
+			.setProject(args[1] == br.com.empresa.almintegration.constants.Constants.NEW
+			? br.com.empresa.almintegration.constants.Constants.PROJECT_NEW
+					: br.com.empresa.almintegration.constants.Constants.PROJECT_OLD);
+			
+			enviromentSettings = new Utils().getEnvSettings(settings);
+			almSettings = new Utils().getALMConfigs(settings);
+			
+		} catch (JAXBException e) {
+			LOGGER.error("Erro no XML: "+e.getMessage());
+			throw new NullPointerException();
+		}
+
 	}
 
 	private static void init(String testSetId) throws Exception {
@@ -161,7 +166,7 @@ public class PlayTestCases extends ReportMain {
 		currentUseCase = g.getFieldListFromJson(g.getJsonUseCase(c.USERNAME, c.PASSWORD, "json", testSetId), "name")
 				.get(0);
 
-		LOGGER.info("[" + new Date() + "] Obtendo casos de teste do ALM referente ao caso de uso/estória " + currentUseCase);
+		LOGGER.info("[" + new Date() + "] Obtendo casos de teste do ALM referente ao caso de uso/estoria " + currentUseCase);
 
 		targetCycle = g.getFieldListFromJson(queryedJsonInstances, "assign-rcyc").get(0);
 		testInstancesId = g.getFieldListFromJson(nonQueryedJsonInstances, "id");
@@ -214,14 +219,8 @@ public class PlayTestCases extends ReportMain {
 
 		} catch (NullPointerException npe) {
 			ArrayList<String> a = new ArrayList<String>();
-			a.add("retorno null");
-			a.add("retorno null 2");
-			a.add("retorno null 3");
-			a.add("retorno null 4");
-			a.add("retorno null 5");
-			return a; // retorna null, pois a execucao esta sendo feita via
-						// teste unitario
-
+			a.add("retorno null"); a.add("retorno null 2"); a.add("retorno null 3"); a.add("retorno null 4"); a.add("retorno null 5");
+			return a; // retorna null, pois a execucao esta sendo feita via teste unitario
 		} catch (Exception e) {
 			// erro no g.getJsonRunSteps
 		}
@@ -457,7 +456,7 @@ public class PlayTestCases extends ReportMain {
 	/**
 	 * Fabrica<BR>
 	 *
-	 * AUT-126 - Relatorio de execucao em Excel<BR>
+	 * Relatorio de execucao em Excel<BR>
 	 *
 	 * @since 8 de jul de 2016 10:11:07
 	 * @author Gabriel Aguido Fraga<BR>
@@ -490,7 +489,7 @@ public class PlayTestCases extends ReportMain {
 	/**
 	 * Fabrica<BR>
 	 *
-	 * AUT-126 - Relatorio de execucao em Excel<BR>
+	 * Relatorio de execucao em Excel<BR>
 	 *
 	 * @since 8 de jul de 2016 15:01:16
 	 * @author Gabriel Aguido Fraga<BR>
@@ -523,7 +522,7 @@ public class PlayTestCases extends ReportMain {
 	/**
 	 * Fabrica<BR>
 	 *
-	 * AUT-126 - Relatorio de execucao em Excel<BR>
+	 * Relatorio de execucao em Excel<BR>
 	 *
 	 * @since 8 de jul de 2016 10:11:07
 	 * @author Gabriel Aguido Fraga<BR>
@@ -548,15 +547,6 @@ public class PlayTestCases extends ReportMain {
 		return tbs;
 	}
 
-	public String getEvidencesPath() {
-		return evidencesPath;
-	}
-
-	public void setEvidencesPath(String evidencesPath) {
-		this.evidencesPath = evidencesPath;
-	}
-
-	
 	private static void playSuit(String testSetId, Class<?> suitClass) throws Exception{
 		
 		init(testSetId);

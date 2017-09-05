@@ -4,12 +4,12 @@
 	<Config>
 		<ALM>
 			<Project>
-				<Project>PJ07329_Cred_OLD</Project>
-				<Host>almcielo.saas.hpe.com</Host>
+				<Project>PROJECT_ALM</Project>
+				<Host>alm.saas.hpe.com</Host>
 				<Port>80</Port>
-				<Domain>CIELO</Domain>
-				<User>gabriel.fraga.yam</User>
-				<Pass>Treina01</Pass>
+				<Domain>DOMAIN_ALM</Domain>
+				<User>USER_ALM</User>
+				<Pass>PASS_ALM</Pass>
 			</Project>
 		</ALM>
 		<Evidences>
@@ -19,11 +19,11 @@
 			<Executor>AUTOMATION</Executor>
 		</Evidences>
 		<Email>
-			<From>gabriel.fraga@yaman.com.br</From>
-			<To>gabriel.fraga@yaman.com.br</To>
+			<From>email@fabrica.com.br</From>
+			<To>email@fabrica.com.br</To>
 			<Host>smtp.gmail.com</Host>
 			<Port>587</Port>
-			<Pass>4pee4aa@_Aguido</Pass>
+			<Pass>PASS_EMAIL</Pass>
 		</Email>
 		<Paths>
 			<FabricaLogo>./utilitarios/arquivos/fabricaLogo.png</FabricaLogo>
