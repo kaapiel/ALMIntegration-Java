@@ -79,6 +79,7 @@ public class PlayTestCases extends ReportMain {
 	public ServiceResponse sr;
 	public static br.com.empresa.almintegration.alm.configuration.almModel.Settings almSettings;
 	private static Logger LOGGER = LoggerFactory.getLogger(PlayTestCases.class.getSimpleName());
+	public String[] args = new String[]{"HMLEnv", "OLD"};
 
 	public static void main(String[] args) throws Exception {
 
@@ -138,22 +139,29 @@ public class PlayTestCases extends ReportMain {
 		}
 		
 		try{
-			settings = new Utils().getSettings();
-			settings.setEnv(args[0]);
 			
-			settings.getConfig().getALM().getProject()
-			.setProject(args[1] == br.com.empresa.almintegration.constants.Constants.NEW
-			? br.com.empresa.almintegration.constants.Constants.PROJECT_NEW
-					: br.com.empresa.almintegration.constants.Constants.PROJECT_OLD);
-			
-			enviromentSettings = new Utils().getEnvSettings(settings);
-			almSettings = new Utils().getALMConfigs(settings);
+			initSettings(args);
 			
 		} catch (JAXBException e) {
 			LOGGER.error("Erro no XML: "+e.getMessage());
 			throw new NullPointerException();
 		}
 
+	}
+
+	public static void initSettings(String[] args) throws JAXBException {
+		
+		settings = new Utils().getSettings();
+		settings.setEnv(args[0]);
+		
+		settings.getConfig().getALM().getProject()
+		.setProject(args[1] == br.com.empresa.almintegration.constants.Constants.NEW
+		? br.com.empresa.almintegration.constants.Constants.PROJECT_NEW
+				: br.com.empresa.almintegration.constants.Constants.PROJECT_OLD);
+		
+		enviromentSettings = new Utils().getEnvSettings(settings);
+		almSettings = new Utils().getALMConfigs(settings);
+		
 	}
 
 	private static void init(String testSetId) throws Exception {

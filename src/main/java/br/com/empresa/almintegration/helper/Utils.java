@@ -586,6 +586,8 @@ public class Utils extends PlayTestCases {
 				valorFinal = barra+Constants.SUCCESS+barra;
 			}else if (name.contains(ConstantsServices.FAIL)){
 				valorFinal = barra+Constants.FAIL+barra;
+			}else{
+				valorFinal = barra+Constants.UNITTEST+barra;
 			}
 
 		} catch (Exception e) {
@@ -940,14 +942,15 @@ public class Utils extends PlayTestCases {
 		return finalResponse;
 	}
 	
-	public static AppiumServer initializeServer() throws ExecuteException, IOException, InterruptedException{
+	public static AppiumServer initializeServer() throws ExecuteException, IOException, InterruptedException, URISyntaxException{
 
-		//stopServer();
+		Utils.uninstallAppiumSettingsApp();
+		stopServer();
 		ServerArguments serverArguments = new ServerArguments();
 		serverArguments.setArgument("--port", 4723);
 		serverArguments.setArgument("--local-timezone", true);
 		serverArguments.setArgument("--address", "127.0.0.1");
-		AppiumServer appiumServer = new AppiumServer(serverArguments);
+		AppiumServer appiumServer = new AppiumServer(new File("C:\\Program Files (x86)\\Appium"), serverArguments);
 		appiumServer.startServer(60000);
 		return appiumServer;
 	}
@@ -1040,9 +1043,9 @@ public class Utils extends PlayTestCases {
 		
 		if (appPath == null) {
 			//caps.setCapability(MobileCapabilityType.APP, "Browser");
-			caps.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
-			caps.setCapability(MobileCapabilityType.APP_PACKAGE, "com.android.chrome");
-			caps.setCapability(MobileCapabilityType.APP_ACTIVITY, "com.google.android.apps.chrome.ChromeTabbedActivity");
+			//caps.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
+			caps.setCapability(MobileCapabilityType.APP_PACKAGE, "com.asus.calculator");
+			caps.setCapability(MobileCapabilityType.APP_ACTIVITY, ".Calculator");
 		} else {
 			caps.setCapability(MobileCapabilityType.APP, new File(appPath).getAbsolutePath());
 			caps.setCapability(MobileCapabilityType.APP_PACKAGE, Constants.pacote);
@@ -1067,6 +1070,14 @@ public class Utils extends PlayTestCases {
 			return driver;
 		}
 
+	}
+	
+	public static void uninstallAppiumSettingsApp() throws FileNotFoundException, IOException, URISyntaxException{
+		
+		//adb uninstall com.test.app
+		Runtime.getRuntime().exec(carregarLinks().getProperty(ViewConstants.Commands.ADB_PATH)+"adb uninstall io.appium.unlock");
+		Runtime.getRuntime().exec(carregarLinks().getProperty(ViewConstants.Commands.ADB_PATH)+"adb uninstall io.appium.settings");
+		
 	}
 	
 	
