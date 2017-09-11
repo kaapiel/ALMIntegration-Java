@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.empresa.almintegration.execution.PlayTestCases;
+import br.com.empresa.almintegration.mainframe.net.sf.f3270.IntegrationTestBase;
 
 /**
  * Fabrica<BR>
@@ -38,7 +39,7 @@ import br.com.empresa.almintegration.execution.PlayTestCases;
  * 
  *         automation
  */
-public class ReportMain {
+public class ReportMain extends IntegrationTestBase {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(ReportMain.class.getSimpleName());
 	
@@ -504,5 +505,17 @@ public class ReportMain {
 		font.setFontHeight((short)(11*20));
 		font.setColor((short)HSSFColor.BLACK.index);
 		font.setBold(false);
+	}
+
+	@Override
+	protected Mode getMode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String getHostname() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

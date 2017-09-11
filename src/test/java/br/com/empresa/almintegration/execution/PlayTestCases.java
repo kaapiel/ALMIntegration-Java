@@ -225,7 +225,9 @@ public class PlayTestCases extends ReportMain {
 
 		} catch (NullPointerException npe) {
 			ArrayList<String> a = new ArrayList<String>();
-			a.add("retorno null"); a.add("retorno null 2"); a.add("retorno null 3"); a.add("retorno null 4"); a.add("retorno null 5");
+			for(int i = 0; i<100; i++){
+				a.add("retorno null "+ i);
+			}
 			return a; // retorna null, pois a execucao esta sendo feita via teste unitario
 		} catch (Exception e) {
 			// erro no g.getJsonRunSteps
