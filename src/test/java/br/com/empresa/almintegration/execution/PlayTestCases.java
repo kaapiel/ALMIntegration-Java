@@ -54,7 +54,11 @@ import br.com.empresa.almintegration.helper.TestesServicos;
 import br.com.empresa.almintegration.helper.Utils;
 import br.com.empresa.almintegration.helper.imageutils.JSON2Image;
 import br.com.empresa.almintegration.model.ServiceResponse;
+import br.com.empresa.almintegration.suits.SUITdatabase_SPRINTxx_ESTORIAxx;
+import br.com.empresa.almintegration.suits.SUITmainframe_SPRINTxx_ESTORIAxx;
+import br.com.empresa.almintegration.suits.SUITmobile_SPRINTxx_ESTORIAxx;
 import br.com.empresa.almintegration.suits.SUITweb_SPRINTxx_ESTORIAxx;
+import br.com.empresa.almintegration.suits.SUITwebservice_SPRINTxx_ESTORIAxx;
 
 public class PlayTestCases extends ReportMain {
 
@@ -88,6 +92,10 @@ public class PlayTestCases extends ReportMain {
 		try {
 
 			playSuit("testSetId from ALM", SUITweb_SPRINTxx_ESTORIAxx.class);
+			playSuit("testSetId from ALM", SUITwebservice_SPRINTxx_ESTORIAxx.class);
+			playSuit("testSetId from ALM", SUITmobile_SPRINTxx_ESTORIAxx.class);
+			playSuit("testSetId from ALM", SUITmainframe_SPRINTxx_ESTORIAxx.class);
+			playSuit("testSetId from ALM", SUITdatabase_SPRINTxx_ESTORIAxx.class);
 
 		} finally {
 			gerarRelatorio();
