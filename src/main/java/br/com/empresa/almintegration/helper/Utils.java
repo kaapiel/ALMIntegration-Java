@@ -1048,8 +1048,8 @@ public class Utils extends PlayTestCases {
 			caps.setCapability(MobileCapabilityType.APP_ACTIVITY, ".Calculator");
 		} else {
 			caps.setCapability(MobileCapabilityType.APP, new File(appPath).getAbsolutePath());
-			caps.setCapability(MobileCapabilityType.APP_PACKAGE, Constants.pacote);
-			caps.setCapability(MobileCapabilityType.APP_ACTIVITY, Constants.classe);
+			//caps.setCapability(MobileCapabilityType.APP_PACKAGE, Constants.pacote);
+			//caps.setCapability(MobileCapabilityType.APP_ACTIVITY, Constants.classe);
 		}
 
 		if (deviceName == null){ 
@@ -1063,7 +1063,7 @@ public class Utils extends PlayTestCases {
 			driver.manage().timeouts().implicitlyWait(4, TimeUnit.MINUTES);
 			return driver;
 		} else {
-			Runtime.getRuntime().exec(carregarLinks().getProperty(ViewConstants.Commands.EMULATOR_PATH)+"emulator -netdelay none -netspeed full -avd Nexus_5X_API23");
+			Runtime.getRuntime().exec(carregarLinks().getProperty(ViewConstants.Commands.EMULATOR_PATH)+"emulator -netdelay none -netspeed full -no-boot-anim -avd Nexus_5X_API23");
 			System.out.println(aguardarDispositivoAndroidLigar());
 			AndroidDriver<AndroidElement> driver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
 			driver.manage().timeouts().implicitlyWait(4, TimeUnit.MINUTES);

@@ -34,7 +34,7 @@
 			<Layouts>./utilitarios/layouts/</Layouts>
 			<Evidencia>./utilitarios/evidencias/</Evidencia>
 			<EvidenciasConsolidadas>./utilitarios/evidenciasConsolidadas/</EvidenciasConsolidadas>
-			<App>./app-debug.apk</App>
+			<App>./app.apk</App>
 			<Adb>C:/Users/(USER)/AppData/Local/Android/sdk/platform-tools/</Adb>
 			<Emulator>C:/Users/(USER)/AppData/Local/Android/sdk/tools/</Emulator>
 		</Paths>

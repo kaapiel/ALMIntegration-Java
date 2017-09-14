@@ -23,7 +23,7 @@ public class SPRINTxx_ESTORIAxxxx_CT003 extends CustomerTestCase {
 
 	@Before
 	public void antes() throws InterruptedException, IOException, URISyntaxException{
-		driver = Utils.initializeAndroidDriver("192.168.1.30:5555", null);
+		driver = Utils.initializeAndroidDriver("192.168.0.1:5555", null);
 		calcPage = PageFactory.initElements(driver, AsusCalculator.class);
 	}
 
