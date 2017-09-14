@@ -132,3 +132,15 @@ Neste arquivo contém todos os prints do teste que a logica do framework gerou p
 
 - Ao término de execução de suítes, é criada uma pasta chamada "evidenciasConsolidadas". Dentro desta pasta é possível ver todas as execuções de suítes que foram executadas. Lá também será possível visualizar todas as evidencias individualmente separadas pelas pastas "PASSED" ou "FAILED".
 - Todo término de execução de suíte de testes é gerado um arquivo excel com todos os dados de execução, dentre eles tempo individual de teste, percentual de testes OK, trace de erro, mensagens e afins. Este arquivo é enviado por email automaticamente para o endereço eletrônico configurado no arquivo de configurações.
+
+## ADB ##
+
+Os testes mobile exigem um certo conhecimento em linha de comandos. 
+Caso seja necessário, será possível também a execução dos testes mobile sem a utilização do cabo USB.
+Para mais informações e comando, acesse http://adbshell.com/commands.
+Seguem alguns comandos ADB que podem ser úteis (android):
+
+- adb devices | adb tcpip 5555 | adb connect #.#.#.#
+- adb shell input text "insert%syour%stext%shere"
+- adb shell 'pm list packages -f |grep packageName
+- adb shell monkey -p your.app.package.name -c android.intent.category.LAUNCHER 1
