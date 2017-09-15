@@ -3,7 +3,7 @@
 Este é um projeto de integração de testes (java) com a ferramena ALM da HP. Através desta integração é possível criar novas 'Runs', 
 atualizar o status de uma 'Test Instance', fazer o upload de evidências e etc.
 
-Este framework é capaz de realizar testes de software para:
+#### Este framework é capaz de realizar testes de software para: ####
 * WEB
 * WEBSERVICES
 * MOBILE
