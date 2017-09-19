@@ -14,7 +14,6 @@ atualizar o status de uma 'Test Instance', fazer o upload de evidências e etc.
 
 * ALM Integration tests com Java
 * v0.01
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### O que precisamos ter em mente antes de iniciar as configurações? ###
 
