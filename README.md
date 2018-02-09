@@ -104,7 +104,7 @@ Estas são as tecnologias e estruturas que utilizamos no projeto:
 + Hibernate, JDBC
 + PW3270 - Windows
 - Lembre-se: existe um erro no projeto relacionado ao ojdbc. Para resolvê-lo é necessário executar o seguinte comando no diretório do projeto:
-mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=12.2.0.1 -Dpackaging=jar -Dfile=D:\java\javaee\liboraclejar6\ojdbc6.jar -DgeneratePom=true
+mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc8 -Dversion=12.2.0.1 -Dpackaging=jar -Dfile=./ojdbc8.jar -DgeneratePom=true
 
 
 ## 4 - Estruturas de suites e testes ##
