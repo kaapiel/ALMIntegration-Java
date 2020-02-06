@@ -6,6 +6,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import br.com.empresa.almintegration.alm.infrastructure.Base64Encoder;
+
 public class UpdateEntities {
 
 	static String line = new String();
@@ -25,7 +27,7 @@ public class UpdateEntities {
 			url = new URL(urlString);
 			String payload="{\"lastTestResult\":{ \"executionStatus\": \"2\"}}";           // 2 = fail, 1= pass and 3= WIP 
 
-			encoding = new sun.misc.BASE64Encoder().encode (userPassword.getBytes());
+			encoding = new Base64Encoder().encode (userPassword.getBytes());
 			HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
 
 			urlConnection.setConnectTimeout(15000);
