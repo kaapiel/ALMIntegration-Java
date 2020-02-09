@@ -8,7 +8,8 @@
 ![CircleCI](https://img.shields.io/circleci/build/github/kaapiel/ALMIntegration-Java/master)
 [![API](https://img.shields.io/badge/API-26%2B-green.svg?style=flat)](https://android-arsenal.com/api?level=26)
 
-A powerful & easy to use library for Android
+# ALM Integration Java
+A powerful & easy to use Test Automation Framework
 
 ## Table of Contents
 1. [Quick Start](#quick-start)
@@ -19,7 +20,7 @@ A powerful & easy to use library for Android
 1. [Creators](#creators)
 
 <h2 id="quick-start">Quick Start :chart_with_upwards_trend:</h2>
-Add the library to your Android project, then check out the examples below!
+add your test cases on the framework to automate it!
 
 <br/>
 
