@@ -1,4 +1,5 @@
-![banner](https://raw.github.com/kaapiel/Raw-content/master/Automation-Python/app.png)
+# ALM Integration Java
+A powerful & easy to use Test Automation Framework
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=alm-integration-java&metric=alert_status)](https://sonarcloud.io/dashboard?id=alm-integration-java)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=alm-integration-java&metric=ncloc)](https://sonarcloud.io/dashboard?id=alm-integration-java)
@@ -7,9 +8,6 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=alm-integration-java&metric=security_rating)](https://sonarcloud.io/dashboard?id=alm-integration-java)
 ![CircleCI](https://img.shields.io/circleci/build/github/kaapiel/ALMIntegration-Java/master)
 [![API](https://img.shields.io/badge/API-26%2B-green.svg?style=flat)](https://android-arsenal.com/api?level=26)
-
-# ALM Integration Java
-A powerful & easy to use Test Automation Framework
 
 ## Table of Contents
 1. [Quick Start](#quick-start)
@@ -24,14 +22,138 @@ add your test cases on the framework to automate it!
 
 <br/>
 
-<h2 id="examples">Examples :eyes:</h2>
+## ALM Integration Java
 
-![banner](https://raw.github.com/kaapiel/Raw-content/master/Automation-Python/app.png)
-![banner](https://raw.github.com/kaapiel/Raw-content/master/Automation-Python/app.png)
-![banner](https://raw.github.com/kaapiel/Raw-content/master/Automation-Python/app.png)
-![banner](https://raw.github.com/kaapiel/Raw-content/master/Automation-Python/app.png)
+This is a Test Automation Framework (java) using ALM from HP. Through this framework you can create new 'Runs', 
+update 'Test Instance' status, upload evidences and etc.
 
-<br/>
+#### With This framework you can test: ####
+* WEB
+* WEBSERVICES
+* MOBILE
+* DATA BASE
+* MAINFRAME
+
+## Before we get started ##
+
+* 1 - HMLEnv|TIEnv & NEW|OLD params
+* 2 - XML Settings file - alm project, credentials...
+* 3 - Estruturas & Tecnologias
+* 4 - Estruturas de suites e testes
+* 5 - Estruturas de execuções
+* 6 - Evidências
+
+## 1 - HMLEnv|TIEnv & NEW|OLD params ##
+
+We use on this project XML files to define all kind of constants or mutable variables. 
+Notice that there is two files in the structure, one called HMLEnv.xml and another one called TIEnv.xml. In this files
+there is environment configurations (QA and integrated tests respectively). In case you need create more environment configuration files only follow the same model.
+
+Notice also that there are two files, one called oldALM.xml and another one called newALM.xml. In these files we can find the 'test set id' from the ALM test suits. In case there is another ALM versions you can create new files.
+
+- HMLEnv | TIEnv - In this XML we have the following information:
+	- MainFrame
+		- Credenciais
+		- IP | PORTA
+	- Banco de dados
+		- Credenciais
+		- IP | PORTA
+	- Identificadores web
+		- Credenciais
+		- XPaths, Ids, etc
+	- Identificadores web services
+		- Credenciais | Client id
+		- Endpoints
+		
+- newALM | oldALM - In this XML we have the following information:
+	-  Sprint
+		- Estória
+			- Test Set Id
+			
+After execute the '.jar'generated file (it generate a file with all internal dependencies) you can pass theparameters of environment and ALM version to be run.
+
+#### Ex.: 'java -jar JarName.java HMLEnv NEW'. ####
+After create your tags structure of the ALM file (old or new), access http://pojo.sodhanalibrary.com/ to generate java objects and place it on the customization package.
+			
+			
+			
+## 2 - XML Settings File ##
+
+On Settings.xml file you can find all projects general configuration. On the first tag called 'Env' you can find the test  environment value where we will execute our tests. This value must be excactly the files name, e.g. HMLEnv.
+
+- Settings - In this XML we have the following information:
+	- Enviroment
+	- Configurations
+		- ALM Configurations
+			- Credenciais
+			- Configurações
+		- Evicências
+			- Configurações
+		- Email
+			- Credenciais
+			- HOST | PORTA
+		- Paths
+		- Mensagens
+
+
+
+## 3 - Estruturas & Tecnologias ##
+
+These are the technologies and structure used in this project:
+
++ Java 8, Log4j, JUnit, Apache POI, AShot QATools
++ Maven, Maven Assembly Plugin - jar-with-dependencies
++ Selenium, Serenity BDD, Appium
++ Hibernate, JDBC
++ PW3270 - Windows
+- Notice that exist an ojdbc error on project. To solve it it is necessary to execute the following commandon the project directory:
+mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc8 -Dversion=12.2.0.1 -Dpackaging=jar -Dfile=./ojdbc8.jar -DgeneratePom=true
+
+
+## 4 - Test Suits Structure ##
+
+To the framework work properly, It is necessary some patterns:
+
+- Test case (class) - SPRINTxx_ESTORIAxx_CTxxx.java
+- Test suit (class) - Suit_SPRINTxx_ESTORIAxx.java
+
+
+- All tests (@ Test) must inherit CustomerTestCase (that contain all @ Before and @ After methods) to manage the ALM integration (pass tests, upload evidencie, etc).
+- On the end of each step (@ Step) it must use the ALM steps update method - updateRunStepStatus(getRunIdsList().get(stepOrder++)); Beyond that inside every exception treatment it must update the test (failed or passed) - currentRunStep.setField(RunStep.FIELDS.STATUS, "Passed");
+- All tests must contain @ Step("Step Description")
+
+
+
+## 5 - Executions and Structure ##
+
+Test Suit execution must be run through the following class:
+#### PlayTestCases.java ####
+- This class is responsible for execute all tests from suit. It will show only the results and evidences on ALM if executed directly from this class.
+- Executed tests "unity" will notreflect on ALM, only on local evidences.
+- Through the playSuit(testSetId, SuitClass) method the test is run. Use this method inside the void try catch of the PlayTestCases.java class
+
+
+
+## 6 - Evidences ##
+
+In execution time the evicences 'prints' are generated and stored on the folder called 'evidencias'.
+After finish each test, generates a word (.odt) file with a predefined template.
+In this file you can find all test 'prints' that the framework generated to create the evidences.
+
+- On the Suit Test finish, it creates a folder called "evidenciasConsolidadas". Inside this folder is possible to see all executed test suits. It is also possible to see individualy each evidence separeted by "PASSED" or "FAILED" folders.
+- On the end of all Test Suit is generated an excel file with all execution data: tests time, test passed percentage, error stacktrace, messages and so. This file is send automatically by email configured on the setting file.
+
+## ADB ##
+
+The mobile tests must be executed on command line through java. 
+You can also run mobile tests on phisical devices without usb cable.
+To get more commands, access http://adbshell.com/commands.
+Following you can find some useful ABD commands (android):
+
+- adb devices | adb tcpip 5555 | adb connect #.#.#.#
+- adb shell input text "insert%syour%stext%shere"
+- adb shell 'pm list packages -f |grep packageName
+- adb shell monkey -p your.app.package.name -c android.intent.category.LAUNCHER 1
 
 <h2 id="report">Questions & Issues :thinking:</h2>
 
@@ -71,162 +193,5 @@ limitations under the License.
 
 These people rock!
 
-- [Daniel Marques](https://www.linkedin.com/in/dmarques) - Who helped me and encouraged me to take steps further
-- [Rodrigo Franchi](https://www.linkedin.com/in/rodrigo-franchi-817b9339) - Who gave lots of ideas and several ways to solve problems
-- [Rafael Barriento](https://www.linkedin.com/in/rafael-barriento-de-goes-8014b1b1) - Who gave me tons of tech insights to create innovative solutions
-- [Diogo Julião](https://www.linkedin.com/in/diogo-oliveira-4b7a96128) - Who encourage me to whatever ideia i had as an outstading one
-
-
-# ALMIntegration #
-
-Este é um projeto de integração de testes (java) com a ferramena ALM da HP. Através desta integração é possível criar novas 'Runs', 
-atualizar o status de uma 'Test Instance', fazer o upload de evidências e etc.
-
-#### Este framework é capaz de realizar testes de software para: ####
-* WEB
-* WEBSERVICES
-* MOBILE
-* DATA BASE
-* MAINFRAME
-
-### Este é um repositório privado. Apenas pessoas autorizadas podem realizar alterações. ###
-
-* ALM Integration tests com Java
-* v0.01
-
-### O que precisamos ter em mente antes de iniciar as configurações? ###
-
-* 1 - HMLEnv|TIEnv & NEW|OLD params
-* 2 - XML Settings file - alm project, credentials...
-* 3 - Estruturas & Tecnologias
-* 4 - Estruturas de suites e testes
-* 5 - Estruturas de execuções
-* 6 - Evidências
-
-### Contribua conosco ###
-
-* Escreva melhorias tanto no framework como na estrutura dos testes
-* A nossa política de code review está em construção
-
-### Entre em contato ###
-
-* Owner/Admin - Gabriel Aguido Fraga
-
-
-
-## 1 - HMLEnv|TIEnv & NEW|OLD params ##
-
-Utilizamos no projeto arquivos XML para definir todos os tipos de constantes ou variáveis mutáveis. 
-Repare que existem dois arquivos em nossa estrutura, um chamado HMLEnv.xml e outro chamado TIEnv.xml. Nestes arquivos
-contém configurações de ambientes (Homologação e teste integrado respectivamente). Caso seja necessário criar mais 
-arquivos de configurações de ambientes basta apenas seguir o mesmo modelo.
-
-Repare também que existem dois arquivos, um chamado oldALM.xml e outro chamado newALM.xml. Nestes arquivos podemos 
-encontrar os 'test set id' das suites de testes do ALM. Caso hajam outras versões de ALM podem ser acrescentados
-novos arquivos.
-
-- HMLEnv | TIEnv - Neste XML temos as seguintes informações:
-	- MainFrame
-		- Credenciais
-		- IP | PORTA
-	- Banco de dados
-		- Credenciais
-		- IP | PORTA
-	- Identificadores web
-		- Credenciais
-		- XPaths, Ids, etc
-	- Identificadores web services
-		- Credenciais | Client id
-		- Endpoints
-		
-- newALM | oldALM - Neste XML temos as seguintes informações:
-	-  Sprint
-		- Estória
-			- Test Set Id
-			
-Ao executar o arquivo gerado .jar (gera-se um arquivo com todas as dependências internas) passa-se os parâmetros do ambiente e da 
-versão do ALM a ser executadas.
-#### Ex.: 'java -jar JarName.java HMLEnv NEW'. ####
-Após criar a sua estrutura de tags do arquivo ALM (old ou new), acesse o site http://pojo.sodhanalibrary.com/ para poder gerar os
-objetos java e colocá-los no pacote de customização.
-			
-			
-			
-## 2 - XML Settings File ##
-
-No arquivo Settings.xml se encontram todas as configurações gerais do projeto. Na primeira tag chamada 'Env' se encontra o valor do 
-ambiente de testes onde realizaremos as nossas execuções. Este valor deve ser exatamente como está o nome do arquivo, ex.: HMLEnv.
-
-- Settings - Neste XML temos as seguintes informações:
-	- Enviroment
-	- Configurations
-		- ALM Configurations
-			- Credenciais
-			- Configurações
-		- Evicências
-			- Configurações
-		- Email
-			- Credenciais
-			- HOST | PORTA
-		- Paths
-		- Mensagens
-
-
-
-## 3 - Estruturas & Tecnologias ##
-
-Estas são as tecnologias e estruturas que utilizamos no projeto:
-
-+ Java 8, Log4j, JUnit, Apache POI, AShot QATools
-+ Maven, Maven Assembly Plugin - jar-with-dependencies
-+ Selenium, Serenity BDD, Appium
-+ Hibernate, JDBC
-+ PW3270 - Windows
-- Lembre-se: existe um erro no projeto relacionado ao ojdbc. Para resolvê-lo é necessário executar o seguinte comando no diretório do projeto:
-mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc8 -Dversion=12.2.0.1 -Dpackaging=jar -Dfile=./ojdbc8.jar -DgeneratePom=true
-
-
-## 4 - Estruturas de suites e testes ##
-
-Para o perfeito funcionamento do framework, faz-se necessário alguns padrões:
-
-- Caso de teste (classe) - SPRINTxx_ESTORIAxx_CTxxx.java
-- Suite de teste (classe) - Suit_SPRINTxx_ESTORIAxx.java
-
-
-- Todos os testes (@ Test) devem herdar CustomerTestCase (que contém os métodos @ Before e @ After) para gerenciar a integração com o ALM (passar testes, realizar upload de evidencias, etc).
-- No fim de cada step (@ Step) deve-se utilizar o método de atualização dos steps do ALM updateRunStepStatus(getRunIdsList().get(stepOrder++)); Além disso, dentro de todo o tratamento de exceção deve-se conter a atualização do teste (failed ou passed) - currentRunStep.setField(RunStep.FIELDS.STATUS, "Passed");
-- Todos os testes devem conter @ Step("Descrição do Step")
-
-
-
-## 5 - Estruturas de execuções ##
-
-A execução da suite de testes deverá ocorrer através da classe
-#### PlayTestCases.java ####
-- Esta classe é responsável por executar os testes das suítes. Só serão visto os resultados e evidencias no ALM se executados diretamente desta classe.
-- Testes executados "unitariamente" não serão refletidos no ALM, apenas nas evidencias locais.
-- Através do método playSuit(testSetId, SuitClass) é realizada a execução dos testes. Utilizar este método dentro do try catch vazio da classe PlayTestCases.java
-
-
-
-## 6 - Evidências ##
-
-Em tempo de execução são gerados os 'prints' das evidencias e armazenados na pasta criada chamada 'evidencias'.
-Após o término de cada teste, é gerado um arquivo word (.odt) com um template pré-definido.
-Neste arquivo contém todos os prints do teste que a logica do framework gerou para criar o arquivo de evidencia.
-
-- Ao término de execução de suítes, é criada uma pasta chamada "evidenciasConsolidadas". Dentro desta pasta é possível ver todas as execuções de suítes que foram executadas. Lá também será possível visualizar todas as evidencias individualmente separadas pelas pastas "PASSED" ou "FAILED".
-- Todo término de execução de suíte de testes é gerado um arquivo excel com todos os dados de execução, dentre eles tempo individual de teste, percentual de testes OK, trace de erro, mensagens e afins. Este arquivo é enviado por email automaticamente para o endereço eletrônico configurado no arquivo de configurações.
-
-## ADB ##
-
-Os testes mobile exigem um certo conhecimento em linha de comandos. 
-Caso seja necessário, será possível também a execução dos testes mobile sem a utilização do cabo USB.
-Para mais informações e comando, acesse http://adbshell.com/commands.
-Seguem alguns comandos ADB que podem ser úteis (android):
-
-- adb devices | adb tcpip 5555 | adb connect #.#.#.#
-- adb shell input text "insert%syour%stext%shere"
-- adb shell 'pm list packages -f |grep packageName
-- adb shell monkey -p your.app.package.name -c android.intent.category.LAUNCHER 1
+- [Bruno Oshiro](https://www.linkedin.com/in/bruno-oshiro-nakamato-634a02b7) - Who thusted me to develop this solution to his project
+- [Fernando Nascimento](https://www.linkedin.com/in/fernando-nascimento-89356542) - Who helped me developed and maintain this project
