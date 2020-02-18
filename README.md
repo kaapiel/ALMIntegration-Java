@@ -1,6 +1,12 @@
 # ALM Integration Java
 A powerful & easy to use Test Automation Framework
 
+### To access SonarCloud data use this link: 
+#### https://sonarcloud.io/dashboard?id=alm-integration-java
+
+### To access pipeline and CI data use this link: 
+#### https://circleci.com/gh/kaapiel/ALMIntegration-Java
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=alm-integration-java&metric=alert_status)](https://sonarcloud.io/dashboard?id=alm-integration-java)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=alm-integration-java&metric=ncloc)](https://sonarcloud.io/dashboard?id=alm-integration-java)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=alm-integration-java&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=alm-integration-java)
